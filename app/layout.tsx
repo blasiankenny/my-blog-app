@@ -1,14 +1,14 @@
 import "./globals.css";
-import { Providers } from "./providers";
-import Navbar from "../components/Navbar";
+import Providers from "./providers"; // ← 修正: 正しいパスでインポート
+import Navbar from "@/components/Navbar"; // ← エイリアス推奨
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-// ✅ ここでアプリ全体のメタデータを定義
+// ✅ メタデータ定義
 export const metadata = {
   title: {
-    default: "My Blog App", // ← デフォルトのタブタイトル
-    template: "%s | My Blog App", // ← ページごとのタイトルがある場合に使われる
+    default: "My Blog App",
+    template: "%s | My Blog App",
   },
   description: "これは Next.js で作られたブログアプリです。",
 };

@@ -6,6 +6,7 @@ import {
   DeleteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
+// DynamoDB クライアントの初期化
 const client = new DynamoDBClient({
   region: "ap-southeast-2",
   credentials: {
@@ -14,12 +15,20 @@ const client = new DynamoDBClient({
   },
 });
 
+function extractIdFromRequest(req: NextRequest): string | null {
+  const segments = req.nextUrl.pathname.split("/");
+  return segments.length > 0 ? segments[segments.length - 1] : null;
+}
+
 // GET: 投稿を取得
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+export async function GET(req: NextRequest) {
+  const id = extractIdFromRequest(req);
+  if (!id) {
+    return NextResponse.json(
+      { error: "ID が指定されていません" },
+      { status: 400 }
+    );
+  }
 
   try {
     const command = new GetCommand({
@@ -47,11 +56,14 @@ export async function GET(
 }
 
 // PUT: 投稿を更新
-export async function PUT(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+export async function PUT(req: NextRequest) {
+  const id = extractIdFromRequest(req);
+  if (!id) {
+    return NextResponse.json(
+      { error: "ID が指定されていません" },
+      { status: 400 }
+    );
+  }
 
   try {
     const { title, content } = await req.json();
@@ -107,11 +119,14 @@ export async function PUT(
 }
 
 // DELETE: 投稿を削除
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  const { id } = params;
+export async function DELETE(req: NextRequest) {
+  const id = extractIdFromRequest(req);
+  if (!id) {
+    return NextResponse.json(
+      { error: "ID が指定されていません" },
+      { status: 400 }
+    );
+  }
 
   try {
     const command = new DeleteCommand({

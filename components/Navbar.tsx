@@ -28,7 +28,7 @@ export default function Navbar() {
               {session.user?.name} さん
             </span>
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/" })}
               className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-red-600 text-sm"
             >
               ログアウト

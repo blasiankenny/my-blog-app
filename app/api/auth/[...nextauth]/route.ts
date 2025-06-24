@@ -9,11 +9,6 @@ const handler = NextAuth({
       clientSecret: process.env.GITHUB_SECRET!,
     }),
   ],
-  callbacks: {
-    async redirect({ baseUrl }) {
-      return `${baseUrl}/posts`; // ログイン後に /posts にリダイレクト
-    },
-  },
 });
 
 export { handler as GET, handler as POST };

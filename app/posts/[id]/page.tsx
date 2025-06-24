@@ -1,4 +1,4 @@
-// Server Component
+import { headers, cookies } from "next/headers";
 import PostClientPage from "./PostClientPage";
 
 type Post = {
@@ -9,21 +9,29 @@ type Post = {
   title: string;
 };
 
-export default async function PostDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const id = params.id;
+interface PostDetailPageProps {
+  params: Promise<{ id: string }>;
+}
+
+export default async function PostDetailPage({ params }: PostDetailPageProps) {
+  const { id } = await params;
+
+  const headersList = await headers();
+  const host = headersList.get("host");
+
+  const protocol = host?.includes("localhost") ? "http" : "https";
+  const baseUrl = `${protocol}://${host}`;
+
+  const cookieHeader = cookies().toString(); // Cookieを取得して文字列化
+
   let post: Post | null = null;
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_VERCEL_URL
-      ? `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`
-      : "http://localhost:3000";
-
     const res = await fetch(`${baseUrl}/api/posts/${id}`, {
       cache: "no-store",
+      headers: {
+        Cookie: cookieHeader, // Cookieを送信
+      },
     });
 
     if (!res.ok) {
@@ -38,6 +46,7 @@ export default async function PostDetailPage({
     }
   } catch (err) {
     console.error("Error fetching post:", err);
+    post = null;
   }
 
   return <PostClientPage initialPost={post} />;
