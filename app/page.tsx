@@ -1,5 +1,5 @@
 // app/page.tsx
-import HomeClient from "./HomeClient";
+import HomeClient from "../components/HomeClient";
 
 export const metadata = {
   title: "ホーム | My Blog App",
