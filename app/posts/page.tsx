@@ -14,7 +14,7 @@ type Post = {
 };
 
 export default function PostList() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
