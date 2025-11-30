@@ -12,14 +12,14 @@ export default function Navbar() {
         <Link href="/">My Blog</Link>
       </div>
       <div className="flex items-center space-x-4">
-        <Link href="/" className="text-gray-700 hover:text-blue-600">
-          ホーム
-        </Link>
         <Link href="/posts" className="text-gray-700 hover:text-blue-600">
           投稿一覧
         </Link>
         <Link href="/posts/new" className="text-gray-700 hover:text-blue-600">
           新規投稿
+        </Link>
+        <Link href="/profile" className="text-gray-700 hover:text-blue-600">
+          プロフィール
         </Link>
 
         {status === "loading" ? null : session ? (
