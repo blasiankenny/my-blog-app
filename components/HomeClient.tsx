@@ -15,7 +15,7 @@ export default function HomeClient() {
               ようこそ、{session.user?.name} さん！
             </h1>
             <button
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/" })}
               className="w-full py-2 px-4 bg-gray-500 text-white font-semibold rounded-lg hover:bg-red-600 transition duration-300"
             >
               ログアウト
