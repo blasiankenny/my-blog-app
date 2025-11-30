@@ -18,7 +18,6 @@ export default function NewPost() {
       body: JSON.stringify({
         title,
         content,
-        author: "仮ユーザー", // 後でログインユーザー名に置き換え可能
       }),
     });
 

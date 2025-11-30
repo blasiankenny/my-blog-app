@@ -24,9 +24,7 @@ export default function Navbar() {
 
         {status === "loading" ? null : session ? (
           <>
-            <span className="text-sm text-gray-600">
-              {session.user?.name} さん
-            </span>
+            <span className="text-sm text-gray-600">{session.user?.name}</span>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className="px-3 py-1 bg-gray-500 text-white rounded hover:bg-red-600 text-sm"
